@@ -210,6 +210,7 @@ public class KsebAdmin {
                     catch(Exception e){
                         System.out.println(e);
                     }
+                    break;
                                     case 7:
                                         System.out.println("View Bill");
 
