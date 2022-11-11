@@ -1,30 +1,68 @@
+import java.sql.*;
 import java.util.Scanner;
+import java.util.Date;
+import java.time.Month;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class KsebAdmin {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         int choice;
-        Scanner input = new Scanner(System.in);
-
         while(true){
-            System.out.println("Kseb Consumer Management");
-            System.out.println("1.Add Consumer ");
-            System.out.println("2.Search Consumer ");
-            System.out.println("3.Delete Consumer ");
-            System.out.println("4.Update Consumer ");
-            System.out.println("5.View all Consumers ");
-            System.out.println("6.Generate Bill ");
-            System.out.println("7.View Bill  ");
-            System.out.println("8.Top two high bill paying consumers  ");
-            System.out.println("9.Exit ");
-            System.out.println("Enter your choice:  ");
-            choice = input.nextInt();
+            System.out.println("select option");
+            System.out.println("1.add");
+            System.out.println("2.search");
+            System.out.println("3.delete");
+            System.out.println("4.update");
+            System.out.println("5.view all");
+            System.out.println("6.generate bill");
+            System.out.println("7.view all bill");
+            System.out.println("8.top 2 bill");
+            System.out.println("9.exit");
+
+            choice = sc.nextInt();
+
             switch (choice){
                 case 1:
-                    System.out.println("Add Consumer");
+                    System.out.println("Add Consumer selected");
 
+                    System.out.println("Enter Consumer Name: ");
+                    String name = sc.next();
 
+                    System.out.println("Enter Consumer Address: ");
+                    String address = sc.next();
 
+                    System.out.println("Enter Consumer Phone: ");
+                    String phone = sc.next();
+
+                    System.out.println("Enter the consumer code: ");
+                    int custCode = sc.nextInt();
+
+                    System.out.println("Enter Consumer Email Id: ");
+                    String email = sc.next();
+
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ksebdb", "root", "");
+                        String sql = "INSERT INTO `consumer`(`consumer_name`, `consumer_place`, `consumer_phone`, `consumer_id`, `consumer_email`) VALUES (?,?,?,?,?)";
+                        PreparedStatement stmt = con.prepareStatement(sql);
+                        stmt.setString(1,name);
+                        stmt.setString(2,address);
+                        stmt.setString(3,phone);
+                        stmt.setInt(4,custCode);
+                        stmt.setString(5,email);
+                        stmt.executeUpdate();
+                        System.out.println("added successfully");
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
+
+
+
                 case 2:
                     System.out.println("Search Consumer");
 
